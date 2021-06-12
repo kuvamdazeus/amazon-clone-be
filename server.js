@@ -32,8 +32,7 @@ app.post('/update-user', async (req, res) => {
         let update = jwt.verify(req.body.encrypted, process.env.JWT_SECRET);
         delete update.iat;
 
-        let dbResponse = await users.updateOne({ email: update.email }, update);
-        console.log(dbResponse, update);
+        await users.updateOne({ email: update.email }, update);
         res.status(201).json({ status: true });
     }
 
